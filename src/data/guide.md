@@ -1,17 +1,31 @@
-## Installation
-
-```sh
-composer create-project brendt/stitcher-site
-```
+# Guide
 
 ## Building a site with Stitcher
 
-Stitcher sites can be built by anyone with basic HTML knowledge: **data entries** are mapped onto **templates** which are accessible via **a URL**.
-These two components (entries and templates) are mapped - *stitched* - together via a **config file**. Data entries can be provided in many ways:
-JSON or YAML files, MarkDown files, images, SASS or CSS, JavaScript, folders and more.
+Stitcher sites utilize a simple concept that allows PHP developers to quickly publish a structured website or blog.
+**Data entries** are mapped onto **templates** and “stitched” together via a **config file**.
 
-The goal is simple: create blazing fast websites. Stitcher will parse all your templates into static HTML pages, will parse and minify CSS and JavaScript,
- will optimize images using ``srcset`` and provides useful developer tools to aid you in setting things up smoothly.
+The goal is simple: create blazing fast websites. Stitcher will parse all your templates into static HTML pages, 
+will parse and minify CSS and JavaScript, will optimize images using ``srcset`` and provides useful developer tools
+to aid you in setting things up smoothly.
+
+## Installation
+
+When you read this guide you probably have set up the project already. If not, run
+
+```bash
+composer create-project pageon/stitcher
+```
+
+For development purposes you may run the internal PHP server and point it to the `/dev` directory.
+
+```bash
+php -S localhost:80 -t dev/
+```
+
+See »Host setup« to find out how to set up different hosts for development and production.
+
+## File setup
 
 ### site.yml
 
@@ -48,15 +62,15 @@ The ``site.yml`` file, located in the ``src/site`` directory is used to stitch t
 ```
 
 The ``template`` key is required and provides a path to the required template for this page.
- The ``data`` key isn't required. It takes a collection of variable names (these will be accessible in the template as variables).
- Each variable will need to be loaded. You can either provide a path to a data file (loaded from ``src/data`` by default),
- or you can provide a collection with a `src` and `id` key. This approach will generate detail pages from a collection of data entries.
+The ``data`` key isn't required. It takes a collection of variable names (these will be accessible in the template as variables).
+Each variable will need to be loaded. You can either provide a path to a data file (loaded from ``src/data`` by default),
+or you can provide a collection with a `src` and `id` key. This approach will generate detail pages from a collection of data entries.
 
 ### Data entries
 
 Data entries can be provided in many formats: JSON, YAML, MarkDown, image, folder, ... Examples can be found after running the `site:install` command.
- A data file can either contain data of a single entry, or contain a collection of multiple entries. In the second case, when using JSON or YAML files,
- An extra root key `entries` is required.
+A data file can either contain data of a single entry, or contain a collection of multiple entries. In the second case, when using JSON or YAML files,
+An extra root key `entries` is required.
 
 ```yaml
 entries:
@@ -79,8 +93,7 @@ See the `src/data` folder files for a more thorough reference.
 
 ### Templates
 
-At this moment, Stitcher only supports Smarty as a template engine. Support for more engines will be added in the future.
- In a template, all functionality of the engine is available, and all variables provided in `site.yml` are available.
+In a template, all functionality of the engine is available, and all variables provided in `site.yml` are available.
 
 ```html
 {extends 'index.tpl'}
@@ -98,7 +111,12 @@ At this moment, Stitcher only supports Smarty as a template engine. Support for 
 {/block}
 ```
 
-### Helpers
+### Config
+
+The `config.yml` file provides some configuration options, to set directory paths, image rendering config, meta config and minification options.
+See the config file for more information.
+
+## Helpers
 
 Stitcher provides some helper functions in aid of creating fast websites.
 
@@ -128,12 +146,11 @@ Stitcher provides some helper functions in aid of creating fast websites.
 </html>
 ```
 
-### Config
+## Commands
 
-The `config.yml` file provides some configuration options, to set directory paths, image rendering config, meta config and minification options.
- See the config file for more information.
+Stitcher offers a command line script to run some static site actions.
 
-### Commands
+Run `./stitcher` to see the list of available commands and options. Some of them are:
 
 - `site:install`: Copy a base install example.
 - `site:generate [url]`: Generate the whole site, or a specific URL from `sites.yml`.
@@ -141,17 +158,11 @@ The `config.yml` file provides some configuration options, to set directory path
 - `router:list`: List all available URLs from `sites.yml`.
 - `router:dispatch url`: Debug a specified URL.
 
-### Developer controller
+## Host setup
 
-The developer controller can be used to generate a single URL on-the-fly. Thus enabling a developer to make changes to data entries, configs or templates; and see these changes in real-time, without the need of manually generating the website again.
+Stitcher requires at least one virtual host, two if you'd want to use the development mode.
 
-It's obvious that this approach takes a bit more rendering time, so web pages will be slower.
-
-### Host setup
-
-Stitcher requires at least one virtual host, two if you'd want to use the developers controller.
-
-**production**
+**Production**
 
 ```xml
 <VirtualHost *:80>
@@ -167,7 +178,7 @@ Stitcher requires at least one virtual host, two if you'd want to use the develo
 </VirtualHost>
 ```
 
-**development**
+**Development**
 
 ```xml
 <VirtualHost *:80>
@@ -183,9 +194,8 @@ Stitcher requires at least one virtual host, two if you'd want to use the develo
 </VirtualHost>
 ```
 
-Don't forget to add a local host in ``/ets/hosts``.
+The development mode can be used to generate a single URL on-the-fly.
 
-```
-127.0.0.1 stitcher.local
-127.0.0.1 dev.stitcher.local
-```
+Thus enabling developers to make changes to data entries, configs or templates
+and see these changes in real-time, without the need of manually generating the website again.
+It's obvious that this approach takes a bit more rendering time, so web pages will be slower.

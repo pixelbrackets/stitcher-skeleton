@@ -1,7 +1,7 @@
 <html>
     <head>
         {block 'head'}
-            <title>Stitcher 1.0</title>
+            <title>Stitcher</title>
             {meta}
             {css src="main.scss" inline=true}
         {/block}
@@ -12,7 +12,8 @@
                 <header>
                     <nav class="wrapper">
                         <a href="/" class="stitcher">Stitcher</a>
-                        <a href="http://stitcher.pageon.be/guide/setting-up" target="_blank">Guide</a>
+                        <a href="/guide">Guide</a>
+                        <a href="/examples">Example blog</a>
                     </nav>
                 </header>
             {/block}

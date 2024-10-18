@@ -12,13 +12,13 @@
             Welcome to Stitcher
         </h2>
         <h3>
-            a tool to create <em>blazing</em> fast websites.
+            <em>High performance, static websites for PHP developers.</em>
         </h3>
 
         <div class="vwrapper">
-            <a class="button"  href="http://stitcher.pageon.be/guide/setting-up" target="_blank">Getting started</a>
+            <a class="button" href="/guide" target="_blank">Getting started</a>
             <em class="button-link">or</em>
-            <a class="button" href="http://stitcher.pageon.be/guide" target="_blank">Read the full guide</a>
+            <a class="button" href="/examples" target="_blank">Example blog</a>
         </div>
     </div>
 {/block}
